@@ -72,8 +72,12 @@ class Output(cowrie.core.output.Output):
                 "version": None,
                 "ttylog": None,
                 "hashes": set(),
+                "hassh": None,
                 "protocol": event["protocol"],
             }
+
+        elif event["eventid"] == "cowrie.client.kex":
+            self.meta[session]["hassh"] = event["hassh"]
 
         elif event["eventid"] == "cowrie.login.success":
             u, p = event["username"], event["password"]
