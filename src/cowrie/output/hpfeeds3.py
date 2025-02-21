@@ -77,6 +77,8 @@ class Output(cowrie.core.output.Output):
             }
 
         elif event["eventid"] == "cowrie.client.kex":
+            log.msg(f"got kex", logLevel=logging.INFO)
+            log.msg(json.dumps(event), logLevel=logging.INFO)
             self.meta[session]["hassh"] = event["hassh"]
 
         elif event["eventid"] == "cowrie.login.success":
@@ -116,7 +118,7 @@ class Output(cowrie.core.output.Output):
         elif event["eventid"] == "cowrie.session.closed":
             meta = self.meta.pop(session, None)
             if meta:
-                log.msg("publishing metadata to hpfeeds", logLevel=logging.DEBUG)
+                log.msg("publishing metadata to hpfeeds", logLevel=logging.INFO)
                 meta["endTime"] = event["timestamp"]
                 meta["hashes"] = list(meta["hashes"])
                 self.client.publish(self.channel, json.dumps(meta).encode("utf-8"))
