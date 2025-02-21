@@ -77,8 +77,7 @@ class Output(cowrie.core.output.Output):
             }
 
         elif event["eventid"] == "cowrie.client.kex":
-            log.msg(f"got kex", logLevel=logging.INFO)
-            log.msg(json.dumps(event), logLevel=logging.INFO)
+            log.msg(f"got kex! HASSH {event["hassh"]}", logLevel=logging.INFO)
             self.meta[session]["hassh"] = event["hassh"]
 
         elif event["eventid"] == "cowrie.login.success":
